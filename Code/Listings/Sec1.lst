@@ -1,0 +1,340 @@
+A51 MACRO ASSEMBLER  SEC1                                                                 05/25/2023 12:19:42 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN Sec1.OBJ
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Sec1.asm SET(SMALL) DEBUG PRINT(.\Listings\Sec1.lst) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 020030            2     LJMP MAIN
+                       3     ; p0 for ADC
+                       4     ; p2 for LCD
+                       5     
+000B                   6     ORG 000BH
+000B 0201FE            7     LJMP INTERRUPT
+                       8     
+0030                   9     ORG 0030H
+0030                  10     MAIN:   
+0030 7580FF           11     MOV P0,#0FFH ;ADC Converter The Analog Signal That Comes From Tempreture Sensor to the 8051
+0033 D295             12     SETB P1.5    ; The Motor
+0035 7438             13     MOV A,#38H   ;tells the lcd to set the cursor to the first line and the first column
+0037 1150             14     ACALL COMMAND
+0039 115D             15     ACALL DELAY
+003B 740E             16     MOV A,#0EH   ;tells the lcd to clear the screen
+003D 1150             17     ACALL COMMAND
+003F 115D             18     ACALL DELAY
+0041 7401             19     MOV A,#01H   ;tells the lcd to set the display mode
+0043 1150             20     ACALL COMMAND
+0045 115D             21     ACALL DELAY
+0047 7480             22     MOV A,#080H  ;tells the lcd to display the character at the address 080h
+0049 1150             23     ACALL COMMAND
+004B 115D             24     ACALL DELAY
+004D 020062           25     LJMP AGAIN1
+                      26     
+0050                  27     COMMAND:
+0050 F5A0             28     MOV P2,A  ;LCD
+0052 C2B1             29     CLR P3.1  ;RS
+0054 C2B0             30     CLR P3.0  ;RW
+0056 D2B2             31     SETB P3.2 ;E
+0058 115D             32     ACALL DELAY
+005A C2B2             33     CLR P3.2  ;E
+005C 22               34     RET
+                      35     
+005D                  36     DELAY:
+005D 7BFF             37     MOV R3,#0FFH
+005F DBFE             38     AGAIN : DJNZ R3,AGAIN
+0061 22               39     RET
+                      40     
+0062                  41     AGAIN1:
+0062 7420             42     MOV A,#' '
+0064 3163             43     ACALL LCDWRITE
+0066 115D             44     ACALL DELAY
+0068 744D             45     MOV A,#'M'
+006A 3163             46     ACALL LCDWRITE
+006C 115D             47     ACALL DELAY
+006E 7449             48     MOV A,#'I'
+0070 3163             49     ACALL LCDWRITE
+0072 115D             50     ACALL DELAY
+0074 7443             51     MOV A,#'C'
+0076 3163             52     ACALL LCDWRITE
+0078 115D             53     ACALL DELAY
+007A 7452             54     MOV A,#'R'
+007C 3163             55     ACALL LCDWRITE
+007E 115D             56     ACALL DELAY
+0080 744F             57     MOV A,#'O'
+0082 3163             58     ACALL LCDWRITE
+A51 MACRO ASSEMBLER  SEC1                                                                 05/25/2023 12:19:42 PAGE     2
+
+0084 115D             59     ACALL DELAY
+0086 7443             60     MOV A,#'C'
+0088 3163             61     ACALL LCDWRITE
+008A 115D             62     ACALL DELAY
+008C 744F             63     MOV A,#'O'
+008E 3163             64     ACALL LCDWRITE
+0090 115D             65     ACALL DELAY
+0092 744E             66     MOV A,#'N'
+0094 3163             67     ACALL LCDWRITE
+0096 115D             68     ACALL DELAY
+0098 7454             69     MOV A,#'T'
+009A 3163             70     ACALL LCDWRITE
+009C 115D             71     ACALL DELAY
+009E 7452             72     MOV A,#'R'
+00A0 3163             73     ACALL LCDWRITE
+00A2 115D             74     ACALL DELAY
+00A4 744F             75     MOV A,#'O'
+00A6 3163             76     ACALL LCDWRITE
+00A8 115D             77     ACALL DELAY
+00AA 744C             78     MOV A,#'L'
+00AC 3163             79     ACALL LCDWRITE
+00AE 115D             80     ACALL DELAY
+00B0 744C             81     MOV A,#'L'
+00B2 3163             82     ACALL LCDWRITE
+00B4 115D             83     ACALL DELAY
+00B6 7445             84     MOV A,#'E'
+00B8 3163             85     ACALL LCDWRITE
+00BA 115D             86     ACALL DELAY
+00BC 7452             87     MOV A,#'R'
+00BE 3163             88     ACALL LCDWRITE
+00C0 115D             89     ACALL DELAY
+00C2 74C1             90     MOV A,#0C1H ;turn you to the next row
+00C4 1150             91     ACALL COMMAND
+00C6 115D             92     ACALL DELAY
+00C8 7450             93     MOV A,#'P'
+00CA 3163             94     ACALL LCDWRITE
+00CC 115D             95     ACALL DELAY
+00CE 7452             96     MOV A,#'R'
+00D0 3163             97     ACALL LCDWRITE
+00D2 115D             98     ACALL DELAY
+00D4 744F             99     MOV A,#'O'
+00D6 3163            100     ACALL LCDWRITE
+00D8 115D            101     ACALL DELAY
+00DA 744A            102     MOV A,#'J'
+00DC 3163            103     ACALL LCDWRITE
+00DE 115D            104     ACALL DELAY
+00E0 7445            105     MOV A,#'E'
+00E2 3163            106     ACALL LCDWRITE
+00E4 115D            107     ACALL DELAY
+00E6 7443            108     MOV A,#'C'
+00E8 3163            109     ACALL LCDWRITE
+00EA 115D            110     ACALL DELAY
+00EC 7454            111     MOV A,#'T'
+00EE 3163            112     ACALL LCDWRITE
+00F0 115D            113     ACALL DELAY
+00F2 3170            114     ACALL DELAY1
+00F4 7401            115     MOV A,#01H ;to clear lcd
+00F6 1150            116     ACALL COMMAND
+00F8 115D            117     ACALL DELAY
+00FA 7420            118     MOV A,#' '
+00FC 3163            119     ACALL LCDWRITE
+00FE 115D            120     ACALL DELAY
+0100 7454            121     MOV A,#'T'
+0102 3163            122     ACALL LCDWRITE
+0104 115D            123     ACALL DELAY
+0106 7445            124     MOV A,#'E'
+A51 MACRO ASSEMBLER  SEC1                                                                 05/25/2023 12:19:42 PAGE     3
+
+0108 3163            125     ACALL LCDWRITE
+010A 115D            126     ACALL DELAY
+010C 744D            127     MOV A,#'M'
+010E 3163            128     ACALL LCDWRITE
+0110 115D            129     ACALL DELAY
+0112 7450            130     MOV A,#'P'
+0114 3163            131     ACALL LCDWRITE
+0116 115D            132     ACALL DELAY
+0118 7420            133     MOV A,#' '
+011A 3163            134     ACALL LCDWRITE
+011C 115D            135     ACALL DELAY
+011E 7443            136     MOV A,#'C'
+0120 3163            137     ACALL LCDWRITE
+0122 115D            138     ACALL DELAY
+0124 744F            139     MOV A,#'O'
+0126 3163            140     ACALL LCDWRITE
+0128 115D            141     ACALL DELAY
+012A 744E            142     MOV A,#'N'
+012C 3163            143     ACALL LCDWRITE
+012E 115D            144     ACALL DELAY
+0130 7454            145     MOV A,#'T'
+0132 3163            146     ACALL LCDWRITE
+0134 115D            147     ACALL DELAY
+0136 7452            148     MOV A,#'R'
+0138 3163            149     ACALL LCDWRITE
+013A 115D            150     ACALL DELAY
+013C 744F            151     MOV A,#'O'
+013E 3163            152     ACALL LCDWRITE
+0140 115D            153     ACALL DELAY
+0142 744C            154     MOV A,#'L'
+0144 3163            155     ACALL LCDWRITE
+0146 115D            156     ACALL DELAY
+0148 7420            157     MOV A,#' '
+014A 3163            158     ACALL LCDWRITE
+014C 115D            159     ACALL DELAY
+014E 7446            160     MOV A,#'F'
+0150 3163            161     ACALL LCDWRITE
+0152 115D            162     ACALL DELAY
+0154 7441            163     MOV A,#'A'
+0156 3163            164     ACALL LCDWRITE
+0158 115D            165     ACALL DELAY
+015A 744E            166     MOV A,#'N'
+015C 3163            167     ACALL LCDWRITE
+015E 115D            168     ACALL DELAY
+0160 02017F          169     LJMP AGAIN2
+                     170     
+0163                 171     LCDWRITE:
+0163 F5A0            172     MOV P2,A
+0165 D2B1            173     SETB P3.1
+0167 C2B0            174     CLR P3.0
+0169 D2B2            175     SETB P3.2
+016B 115D            176     ACALL DELAY
+016D C2B2            177     CLR P3.2
+016F 22              178     RET
+                     179     
+0170                 180     DELAY1:                
+0170 7BFF            181     MOV R3,#0FFH
+0172 7DFF            182     HERE1: MOV R5,#0FFH
+0174 75752F          183     HERE2: MOV 75H,#02FH
+0177 D575FD          184     HERE3: DJNZ 75H,HERE3
+017A DDF8            185     HERE4: DJNZ R5,HERE2
+017C DBF4            186     DJNZ R3,HERE1
+017E 22              187     RET
+                     188     
+017F                 189     AGAIN2:
+017F D2B5            190     SETB P3.5
+A51 MACRO ASSEMBLER  SEC1                                                                 05/25/2023 12:19:42 PAGE     4
+
+0181 D2B3            191     SETB P3.3
+0183 C2B4            192     CLR P3.4
+0185 D2B4            193     SETB P3.4
+0187 20B5FD          194     HERE5: JB P3.5,HERE5
+018A C2B3            195     CLR P3.3 ; intialization for ADC
+018C 74C1            196     MOV A,#0C1H ; next to the next row
+018E 1150            197     ACALL COMMAND
+0190 115D            198     ACALL DELAY
+0192 758902          199     MOV TMOD,#02H ;timer 
+0195 75A882          200     MOV IE,#82H   ;interrupt
+0198 A980            201     MOV R1,P0
+019A E9              202     MOV A,R1  ;can not turn from r1 to r4 
+019B FC              203     MOV R4,A
+019C 31AA            204     ACALL COMPARE
+019E EC              205     MOV A,R4
+019F 1201D8          206     LCALL CONVERSION
+01A2 1201ED          207     LCALL LCDWRITETMP
+01A5 3170            208     ACALL DELAY1
+01A7 020030          209     LJMP MAIN
+                     210     
+01AA                 211     COMPARE:
+01AA C3              212     CLR C
+01AB B92300          213     CJNE R1,#35,GAIN
+01AE 500B            214     GAIN: JNC GAIN1
+01B0 C3              215     CLR C
+01B1 B91900          216     CJNE R1,#25,GAIN2
+01B4 500A            217     GAIN2: JNC GAIN3
+01B6 C28C            218     CLR TR0
+01B8 0201C2          219     LJMP GAIN4                              
+01BB 31C4            220     GAIN1: ACALL GREATER
+01BD 0201C2          221     LJMP GAIN4
+01C0 31CE            222     GAIN3: ACALL LOWER
+01C2 C3              223     GAIN4: CLR C
+01C3 22              224     RET
+                     225     
+01C4                 226     GREATER:  
+01C4 C28C            227     CLR TR0
+01C6 7AAA            228     MOV R2,#0AAH
+01C8 758CFF          229     MOV TH0,#0FFH
+01CB D28C            230     SETB TR0
+01CD 22              231     RET
+                     232     
+01CE                 233     LOWER:               
+01CE C28C            234     CLR TR0
+01D0 7AAA            235     MOV R2,#0AAH
+01D2 758C1F          236     MOV TH0,#1FH
+01D5 D28C            237     SETB TR0
+01D7 22              238     RET
+                     239     
+01D8                 240     CONVERSION:
+01D8 75F00A          241     MOV B,#10
+01DB 84              242     DIV AB
+01DC AFF0            243     MOV R7,B
+01DE 75F00A          244     MOV B,#10
+01E1 84              245     DIV AB
+01E2 AEF0            246     MOV R6,B
+01E4 EE              247      MOV A,R6
+01E5 2430            248     ADD A,#30H
+01E7 FE              249     MOV R6,A
+01E8 EF              250     MOV A,R7
+01E9 2430            251     ADD A,#30H
+01EB FF              252     MOV R7,A
+01EC 22              253     RET
+                     254     
+01ED                 255     LCDWRITETMP:
+01ED EE              256     MOV A,R6
+A51 MACRO ASSEMBLER  SEC1                                                                 05/25/2023 12:19:42 PAGE     5
+
+01EE 3163            257     ACALL LCDWRITE
+01F0 115D            258     ACALL DELAY
+01F2 EF              259     MOV A,R7
+01F3 3163            260     ACALL LCDWRITE
+01F5 115D            261     ACALL DELAY
+01F7 7443            262     MOV A,#'C'
+01F9 3163            263     ACALL LCDWRITE
+01FB 115D            264     ACALL DELAY
+01FD 22              265     RET
+                     266     
+01FE                 267     INTERRUPT:
+01FE B295            268     CPL P1.5
+0200 C28C            269     CLR TR0
+0202 8A76            270     MOV 76H,R2
+0204 D576FD          271     HERER: DJNZ 76H,HERER
+0207 D28C            272     SETB TR0
+0209 B295            273     CPL P1.5
+020B 32              274     RETI
+                     275     END
+A51 MACRO ASSEMBLER  SEC1                                                                 05/25/2023 12:19:42 PAGE     6
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AGAIN. . . . . . .  C ADDR   005FH   A   
+AGAIN1 . . . . . .  C ADDR   0062H   A   
+AGAIN2 . . . . . .  C ADDR   017FH   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+COMMAND. . . . . .  C ADDR   0050H   A   
+COMPARE. . . . . .  C ADDR   01AAH   A   
+CONVERSION . . . .  C ADDR   01D8H   A   
+DELAY. . . . . . .  C ADDR   005DH   A   
+DELAY1 . . . . . .  C ADDR   0170H   A   
+GAIN . . . . . . .  C ADDR   01AEH   A   
+GAIN1. . . . . . .  C ADDR   01BBH   A   
+GAIN2. . . . . . .  C ADDR   01B4H   A   
+GAIN3. . . . . . .  C ADDR   01C0H   A   
+GAIN4. . . . . . .  C ADDR   01C2H   A   
+GREATER. . . . . .  C ADDR   01C4H   A   
+HERE1. . . . . . .  C ADDR   0172H   A   
+HERE2. . . . . . .  C ADDR   0174H   A   
+HERE3. . . . . . .  C ADDR   0177H   A   
+HERE4. . . . . . .  C ADDR   017AH   A   
+HERE5. . . . . . .  C ADDR   0187H   A   
+HERER. . . . . . .  C ADDR   0204H   A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+INTERRUPT. . . . .  C ADDR   01FEH   A   
+LCDWRITE . . . . .  C ADDR   0163H   A   
+LCDWRITETMP. . . .  C ADDR   01EDH   A   
+LOWER. . . . . . .  C ADDR   01CEH   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
